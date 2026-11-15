@@ -8,32 +8,25 @@
 <meta name="apple-mobile-web-app-title" content="מעגל">
 <meta name="theme-color" content="#2A1D38">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>מעגל — מעקב מחזור</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F1ECF4; --surface:#FBF8FC; --ink:#2A1D38; --muted:#6E6180; --line:#DCD2E3;
-  --period:#B3264F; --period-soft:#F2C9D5; --ov:#1F7A6B; --fertile:#BFE3DA; --today:#2A1D38;
-  --focus:#6A3FB5;
+  --bg:#FFF8F0; --surface:#FFFFFF; --ink:#3D405B; --muted:#7A7D99; --line:#E8E0D6;
+  --primary:#A8D5BA; --primary-dark:#6FB38C; --secondary:#FFD6A5; --accent:#BDB2FF;
+  --period:#FFADAD; --period-soft:#FFE3E3; --ov:#BDB2FF; --fertile:#A8D5BA; --today:#3D405B; --focus:#6FB38C;
   color-scheme: light;
-  box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#1A1322; --surface:#241B2F; --ink:#F1E9F6; --muted:#B3A5C2; --line:#3A2E48;
-    --period:#F0628A; --period-soft:#5A2238; --ov:#5CC9B3; --fertile:#1F4A43; --today:#F1E9F6; --focus:#B897F0;
-    color-scheme: dark;
-  }
-}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Assistant","Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.55}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.55}
 main{max-width:760px;margin:0 auto;padding:28px 20px 60px}
-h1,h2{font-family:"Frank Ruhl Libre","David",Georgia,serif;margin:0;line-height:1.15}
+h1,h2{font-family:Calibri,Carlito,"Segoe UI",Arial,sans-serif;margin:0;line-height:1.15}
 h2{font-size:1.45rem;font-weight:700;margin-bottom:14px}
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
@@ -41,7 +34,7 @@ button,input{font:inherit;color:inherit}
 .hero{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:center;margin-bottom:34px}
 @media (min-width:640px){.hero{grid-template-columns:300px minmax(0,1fr);gap:34px}}
 .dial{width:100%;max-width:300px;margin:0 auto;display:block}
-.dial text{font-family:"Frank Ruhl Libre",Georgia,serif;fill:var(--ink)}
+.dial text{font-family:Calibri,Carlito,sans-serif;fill:var(--ink)}
 .hero h1{font-size:clamp(2.1rem,7vw,3rem);font-weight:900;margin-bottom:10px}
 .hero .lead{font-size:1.12rem;margin:0 0 14px}
 .facts{display:grid;gap:8px;margin:0;padding:0;list-style:none}
@@ -54,29 +47,30 @@ button,input{font:inherit;color:inherit}
 section{margin-bottom:38px}
 .log{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
 .fields{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.fields > div{min-width:0}
 @media (min-width:560px){.fields{grid-template-columns:repeat(3,minmax(0,1fr))}}
 label{display:block;font-weight:600;font-size:.95rem;margin-bottom:5px}
 label small{font-weight:400;color:var(--muted)}
-input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);min-height:46px}
+input[type=date]{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;-webkit-appearance:none;appearance:none;font-size:16px;line-height:1.3;direction:ltr;text-align:start;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);min-height:48px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
 .btn{border:0;border-radius:999px;padding:11px 22px;font-weight:700;cursor:pointer;min-height:46px}
-.btn.primary{background:var(--period);color:#fff}
+.btn.primary{background:var(--primary);color:var(--ink)}
 .btn.ghost{background:transparent;border:1px solid var(--line)}
 .msg{font-size:.95rem;min-height:1.4em;margin:10px 0 0}
-.msg.err{color:var(--period)}
+.msg.err{color:var(--ink);background:var(--period-soft);border-radius:8px;padding:6px 10px}
 
 .cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .cal-head h2{margin:0}
 .nav{display:flex;gap:6px}
-.nav button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:1.1rem}
+.nav button{height:42px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:1rem;font-weight:700}
 .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
 .wd{text-align:center;font-size:.85rem;color:var(--muted);padding-bottom:4px}
 .day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:.98rem;position:relative}
 .day.out{visibility:hidden}
-.day.period{background:var(--period);color:#fff;font-weight:700}
+.day.period{background:var(--period);color:var(--ink);font-weight:700}
 .day.pred-period{background:repeating-linear-gradient(135deg,var(--period-soft) 0 5px,transparent 5px 9px);border:1.5px dashed var(--period)}
 .day.fertile{background:var(--fertile)}
-.day.ov{background:var(--ov);color:#fff;font-weight:700}
+.day.ov{background:var(--ov);color:var(--ink);font-weight:700}
 .day.pred-ov{box-shadow:inset 0 0 0 2.5px var(--ov);font-weight:700}
 .day.today::after{content:"";position:absolute;bottom:9%;width:5px;height:5px;border-radius:50%;background:currentColor}
 .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:.9rem;color:var(--muted)}
@@ -92,9 +86,30 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
 .empty{color:var(--muted)}
 .note{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:16px}
 .sync{display:block;font-size:.85rem;color:var(--muted);margin-top:6px}
+#splash{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:9;transition:opacity .3s ease}
+#splash.hide{opacity:0;pointer-events:none}
+.splash-logo{width:min(45vmin,320px);height:auto}
+.splash-name{font-size:1.6rem;font-weight:700;color:var(--ink)}
+.fronds{transform-box:view-box;transform-origin:112px 84px;animation:sway 2.5s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@media (prefers-reduced-motion:reduce){.fronds{animation:none}}
 </style>
 </head>
 <body>
+<div id="splash" role="status" aria-label="טוען">
+  <svg class="splash-logo" viewBox="0 0 200 200" aria-hidden="true">
+    <ellipse cx="100" cy="186" rx="72" ry="10" fill="#FFD6A5"/>
+    <path d="M96 186 Q104 130 112 84" fill="none" stroke="#D4A373" stroke-width="10" stroke-linecap="round"/>
+    <g class="fronds" fill="#6FB38C">
+      <path d="M112 84 Q80 56 36 66 Q72 72 112 84Z"/>
+      <path d="M112 84 Q144 50 182 62 Q150 68 112 84Z"/>
+      <path d="M112 84 Q94 44 66 30 Q92 42 112 84Z"/>
+      <path d="M112 84 Q130 40 156 28 Q134 44 112 84Z"/>
+      <path d="M112 84 Q120 108 160 118 Q128 110 112 84Z"/>
+    </g>
+  </svg>
+  <div class="splash-name">מעגל</div>
+</div>
 <main>
   <div class="hero">
     <svg class="dial" id="dial" viewBox="0 0 300 300" role="img" aria-label="מצב במחזור"></svg>
@@ -123,8 +138,8 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     <div class="cal-head">
       <h2 id="calTitle"></h2>
       <div class="nav">
-        <button id="prev" aria-label="חודש קודם">›</button>
-        <button id="next" aria-label="חודש הבא">‹</button>
+        <button id="prev">חודש קודם</button>
+        <button id="next">חודש הבא</button>
       </div>
     </div>
     <div class="grid" id="grid"></div>
@@ -291,7 +306,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
       svg += `<line x1="${tx2.toFixed(1)}" y1="${ty2.toFixed(1)}" x2="${tx.toFixed(1)}" y2="${ty.toFixed(1)}" stroke="var(--today)" stroke-width="3" stroke-linecap="round"/>`;
       svg += `<circle cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="13" fill="var(--surface)" stroke="var(--today)" stroke-width="3"/>`;
       svg += `<text x="${cx}" y="${cy+4}" text-anchor="middle" font-size="62" font-weight="900">${dayIdx+1}</text>`;
-      svg += `<text x="${cx}" y="${cy+34}" text-anchor="middle" font-size="17" style="fill:var(--muted);font-family:Assistant,sans-serif">יום במחזור</text>`;
+      svg += `<text x="${cx}" y="${cy+34}" text-anchor="middle" font-size="17" style="fill:var(--muted);font-family:Calibri,Carlito,sans-serif">יום במחזור</text>`;
     } else {
       svg += `<text x="${cx}" y="${cy+8}" text-anchor="middle" font-size="22">בקרוב</text>`;
     }
@@ -421,7 +436,13 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
   fStart.max = todayKey();
   entries = loadLocal();
   render();
-  loadRemote();
+  const splashStart = Date.now();
+  const splash = document.getElementById('splash');
+  function hideSplash(){
+    const wait = Math.max(0, 400 - (Date.now() - splashStart));
+    setTimeout(()=>{ splash.classList.add('hide'); setTimeout(()=>splash.remove(), 300); }, wait);
+  }
+  Promise.race([loadRemote(), new Promise(r=>setTimeout(r,6000))]).finally(hideSplash);
 })();
 </script>
 </body>
