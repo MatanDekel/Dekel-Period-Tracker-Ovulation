@@ -23,13 +23,7 @@
     color-scheme: dark;
   }
 }
-:root[data-theme="dark"]{
-  --bg:#1A1322; --surface:#241B2F; --ink:#F1E9F6; --muted:#B3A5C2; --line:#3A2E48;
-  --period:#F0628A; --period-soft:#5A2238; --ov:#5CC9B3; --fertile:#1F4A43; --today:#F1E9F6; --focus:#B897F0;
-  color-scheme: dark;
-}
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Assistant","Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.55}
 main{max-width:760px;margin:0 auto;padding:28px 20px 60px}
 h1,h2{font-family:"Frank Ruhl Libre","David",Georgia,serif;margin:0;line-height:1.15}
@@ -37,13 +31,12 @@ h2{font-size:1.45rem;font-weight:700;margin-bottom:14px}
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 
-/* Hero */
 .hero{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:center;margin-bottom:34px}
 @media (min-width:640px){.hero{grid-template-columns:300px minmax(0,1fr);gap:34px}}
 .dial{width:100%;max-width:300px;margin:0 auto;display:block}
 .dial text{font-family:"Frank Ruhl Libre",Georgia,serif;fill:var(--ink)}
 .hero h1{font-size:clamp(2.1rem,7vw,3rem);font-weight:900;margin-bottom:10px}
-.hero .lead{font-size:1.12rem;color:var(--ink);margin:0 0 14px}
+.hero .lead{font-size:1.12rem;margin:0 0 14px}
 .facts{display:grid;gap:8px;margin:0;padding:0;list-style:none}
 .facts li{display:flex;gap:10px;align-items:baseline}
 .dot{width:11px;height:11px;border-radius:50%;flex:none;transform:translateY(1px)}
@@ -51,7 +44,6 @@ button,input{font:inherit;color:inherit}
 .facts b{font-weight:700}
 .sub{color:var(--muted);font-size:.95rem}
 
-/* Form */
 section{margin-bottom:38px}
 .log{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
 .fields{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
@@ -66,7 +58,6 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
 .msg{font-size:.95rem;min-height:1.4em;margin:10px 0 0}
 .msg.err{color:var(--period)}
 
-/* Calendar */
 .cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .cal-head h2{margin:0}
 .nav{display:flex;gap:6px}
@@ -78,14 +69,13 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
 .day.period{background:var(--period);color:#fff;font-weight:700}
 .day.pred-period{background:repeating-linear-gradient(135deg,var(--period-soft) 0 5px,transparent 5px 9px);border:1.5px dashed var(--period)}
 .day.fertile{background:var(--fertile)}
-.day.ov,.day.pred-ov{box-shadow:inset 0 0 0 2.5px var(--ov);font-weight:700}
-.day.ov{background:var(--ov);color:#fff}
+.day.ov{background:var(--ov);color:#fff;font-weight:700}
+.day.pred-ov{box-shadow:inset 0 0 0 2.5px var(--ov);font-weight:700}
 .day.today::after{content:"";position:absolute;bottom:9%;width:5px;height:5px;border-radius:50%;background:currentColor}
 .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:.9rem;color:var(--muted)}
 .legend span{display:flex;align-items:center;gap:7px}
 .sw{width:16px;height:16px;border-radius:50%;display:inline-block}
 
-/* History */
 .hist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .hist li{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
 .hist .when{font-weight:700}
@@ -94,8 +84,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
 .hist button{background:none;border:0;color:var(--muted);cursor:pointer;padding:8px 10px;border-radius:8px;text-decoration:underline;text-underline-offset:3px}
 .empty{color:var(--muted)}
 .note{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:16px}
-.sync{font-size:.85rem;color:var(--muted)}
-@media (prefers-reduced-motion:no-preference){ .arc-today{transition:transform .6s ease} }
+.sync{display:block;font-size:.85rem;color:var(--muted);margin-top:6px}
 </style>
 </head>
 <body>
@@ -146,7 +135,8 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     <ul class="hist" id="hist"></ul>
   </section>
 
-  <p class="note">התחזית מבוססת על הממוצעים של המחזורים שתיעדת, והיא נעשית מדויקת יותר עם כל חודש. היא לא מתאימה כאמצעי מניעה. <span class="sync" id="sync"></span></p>
+  <p class="note">התחזית מבוססת על הממוצעים של המחזורים שתיעדת, והיא נעשית מדויקת יותר עם כל חודש. היא לא מתאימה כאמצעי מניעה.
+    <span class="sync" id="sync"></span></p>
 </main>
 
 <script>
@@ -156,14 +146,12 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
   let entries = [];
   let editingId = null;
   let viewMonth = startOfMonth(new Date());
-  let dbRef = null;
   let writeChain = Promise.resolve();
 
-  // ---------- date helpers (local YYYY-MM-DD) ----------
   function toKey(d){ const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), dd=String(d.getDate()).padStart(2,'0'); return y+'-'+m+'-'+dd; }
   function fromKey(k){ const [y,m,d]=k.split('-').map(Number); return new Date(y,m-1,d); }
   function utc(k){ const [y,m,d]=k.split('-').map(Number); return Date.UTC(y,m-1,d); }
-  function diff(a,b){ return Math.round((utc(b)-utc(a))/DAY); } // b - a in days
+  function diff(a,b){ return Math.round((utc(b)-utc(a))/DAY); }
   function addDays(k,n){ const d=fromKey(k); d.setDate(d.getDate()+n); return toKey(d); }
   function todayKey(){ return toKey(new Date()); }
   function startOfMonth(d){ return new Date(d.getFullYear(), d.getMonth(), 1); }
@@ -174,49 +162,42 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
   const f = (k,fmt=fmtDay) => fmt.format(fromKey(k));
   function days(n){ return n===1 ? 'יום אחד' : n===2 ? 'יומיים' : n+' ימים'; }
 
-  // ---------- storage ----------
+  // ---------- storage: server is the source of truth, localStorage is a cache ----------
   function loadLocal(){ try{ const v=localStorage.getItem(LS_KEY); return v?JSON.parse(v):[]; }catch(e){ return []; } }
   function saveLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(entries)); }catch(e){} }
-  function persist(){
-    saveLocal();
-    if(!dbRef) return;
-    const snapshot = entries.map(e=>({...e}));
-    writeChain = writeChain.then(()=>dbRef.set({entries:snapshot, updatedAt:Date.now()}))
-      .then(()=>setSync('נשמר בחשבון שלך'))
-      .catch(()=>setSync('השמירה בחשבון נכשלה, הנתונים שמורים בדפדפן הזה'));
-  }
   function setSync(t){ document.getElementById('sync').textContent = t; }
 
-  async function connectDb(){
+  function persist(){
+    saveLocal();
+    const snapshot = entries.map(e=>({...e}));
+    writeChain = writeChain
+      .then(()=>fetch('/api/cycles',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify({entries:snapshot})}))
+      .then(r=>{ if(!r.ok) throw new Error('save'); setSync('נשמר באתר.'); })
+      .catch(()=>setSync('השמירה לשרת נכשלה. הנתונים נשמרו בדפדפן הזה בלבד. נסי שוב בעוד רגע.'));
+  }
+
+  async function loadRemote(){
     try{
-      if(!window.claude || !window.claude.use) return;
-      const timer = new Promise(r=>setTimeout(()=>r(null),10000));
-      const db = await Promise.race([window.claude.use('db'), timer]);
-      const user = db ? await Promise.race([window.claude.use('user'), timer]) : null;
-      if(!db || !user) return;
-      const id = await user.id();
-      if(!id) return;
-      const ref = db.collection('data/users/'+id).doc('cycles');
-      const snap = await ref.get();
-      dbRef = ref;
-      if(snap.exists && Array.isArray(snap.data().entries)){
-        entries = snap.data().entries.map(e=>({...e}));
-        saveLocal();
-        render();
-        setSync('הנתונים שמורים בחשבון שלך ופרטיים לך.');
+      const r = await fetch('/api/cycles',{cache:'no-store'});
+      if(!r.ok) throw new Error('load');
+      const data = await r.json();
+      if(Array.isArray(data.entries) && data.entries.length){
+        entries = data.entries.map(e=>({...e}));
+        saveLocal(); render(); setSync('הנתונים נטענו מהשרת.');
       } else if(entries.length){
-        persist(); // migrate local data up
+        persist(); // first sync: push what this browser already has
       } else {
-        setSync('הנתונים יישמרו בחשבון שלך ויהיו פרטיים לך.');
+        setSync('הנתונים יישמרו באתר ויהיו זמינים מכל מכשיר.');
       }
-    }catch(e){ /* stay on local storage */ }
+    }catch(e){
+      setSync('לא הצלחתי להתחבר לשרת. מוצגים הנתונים שבדפדפן הזה.');
+    }
   }
 
   // ---------- model ----------
   function sorted(){ return [...entries].sort((a,b)=>a.start<b.start?-1:1); }
   function mean(a){ return a.reduce((s,x)=>s+x,0)/a.length; }
   function sd(a){ if(a.length<2) return 0; const m=mean(a); return Math.sqrt(a.reduce((s,x)=>s+(x-m)**2,0)/(a.length-1)); }
-  // weighted toward recent cycles
   function wmean(a){ let s=0,w=0; a.forEach((x,i)=>{ const wt=i+1; s+=x*wt; w+=wt; }); return s/w; }
 
   function model(){
@@ -234,23 +215,19 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     const recent = cycleLens.slice(-8);
     const cycle = recent.length ? Math.round(wmean(recent)) : 28;
     const period = periodLens.length ? Math.round(mean(periodLens.slice(-8))) : 5;
-    let luteal = luteals.length ? Math.round(mean(luteals.slice(-8))) : 14;
-    // fallback: if ovulations logged but no next cycle yet, use offset from start
+    const luteal = luteals.length ? Math.round(mean(luteals.slice(-8))) : 14;
     const ovOffsets = list.filter(e=>e.ov).map(e=>diff(e.start,e.ov)).filter(x=>x>=6&&x<=40);
-    let ovDay = cycle - luteal; // 0-based offset from start
+    let ovDay = cycle - luteal;
     if(!luteals.length && ovOffsets.length) ovDay = Math.round(mean(ovOffsets.slice(-8)));
     ovDay = Math.max(6, Math.min(cycle-7, ovDay));
     return {list, cycle, period, ovDay, spread: Math.round(sd(recent)), nCycles: cycleLens.length,
-            learnedOv: luteals.length>0 || ovOffsets.length>0, learnedPeriod: periodLens.length>0};
+            learnedOv: luteals.length>0 || ovOffsets.length>0};
   }
 
-  // Predict upcoming cycles from the last logged start
   function predictions(m, count=4){
     const last = m.list[m.list.length-1];
     if(!last) return [];
-    const out=[]; const t=todayKey();
-    let start = addDays(last.start, m.cycle);
-    // if we're past the predicted date with no new log, roll forward but keep the first one (late)
+    const out=[];
     for(let i=0;i<count;i++){
       const s = addDays(last.start, m.cycle*(i+1));
       const ov = addDays(s, -(m.cycle - m.ovDay));
@@ -259,7 +236,6 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     return out;
   }
 
-  // ---------- render ----------
   function render(){
     const m = model();
     renderHero(m);
@@ -278,14 +254,13 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     const dial=document.getElementById('dial'), lead=document.getElementById('lead'), facts=document.getElementById('facts');
     const last = m.list[m.list.length-1];
     const L = m.cycle, cx=150, cy=150, r=118;
-    const deg = d => (d/L)*360; // d = 0-based day offset; clockwise
+    const deg = d => (d/L)*360;
     let svg = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--line)" stroke-width="22"/>`;
-    // tick marks every day
     for(let d=0; d<L; d++){
       const [x0,y0]=polar(cx,cy,r+15,deg(d)), [x1,y1]=polar(cx,cy,r+19,deg(d));
       svg += `<line x1="${x0.toFixed(1)}" y1="${y0.toFixed(1)}" x2="${x1.toFixed(1)}" y2="${y1.toFixed(1)}" stroke="var(--muted)" stroke-width="1" opacity=".5"/>`;
     }
-    svg += `<path d="${arc(cx,cy,r,deg(0)+0.8,deg(m.period)-0.8)}" fill="none" stroke="var(--period)" stroke-width="22" stroke-linecap="butt"/>`;
+    svg += `<path d="${arc(cx,cy,r,deg(0)+0.8,deg(m.period)-0.8)}" fill="none" stroke="var(--period)" stroke-width="22"/>`;
     svg += `<path d="${arc(cx,cy,r,deg(m.ovDay-5)+0.8,deg(m.ovDay+2)-0.8)}" fill="none" stroke="var(--fertile)" stroke-width="22"/>`;
     const [ox,oy]=polar(cx,cy,r,deg(m.ovDay+0.5));
     svg += `<circle cx="${ox.toFixed(1)}" cy="${oy.toFixed(1)}" r="9" fill="var(--ov)"/>`;
@@ -298,7 +273,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
       return;
     }
     const t = todayKey();
-    const dayIdx = diff(last.start, t); // 0-based
+    const dayIdx = diff(last.start, t);
     const preds = predictions(m);
     const next = preds[0];
     const late = dayIdx >= L;
@@ -328,10 +303,11 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     }
 
     const spread = m.spread>0 ? `<span class="sub"> (±${days(m.spread)})</span>` : '';
+    const ovP = toOv<-1 ? preds[1] : next;
     facts.innerHTML = `
       <li><i class="dot p"></i><span>מחזור הבא: <b>${f(next.start,fmtDayW)}</b>${spread}</span></li>
-      <li><i class="dot o"></i><span>ביוץ הבא: <b>${f(toOv<-1 ? preds[1].ov : next.ov, fmtDayW)}</b></span></li>
-      <li><i class="dot f"></i><span>חלון פוריות: <b>${f(toOv<-1?preds[1].fStart:next.fStart)} – ${f(toOv<-1?preds[1].fEnd:next.fEnd)}</b></span></li>
+      <li><i class="dot o"></i><span>ביוץ הבא: <b>${f(ovP.ov, fmtDayW)}</b></span></li>
+      <li><i class="dot f"></i><span>חלון פוריות: <b>${f(ovP.fStart)} – ${f(ovP.fEnd)}</b></span></li>
       <li class="sub">${m.nCycles ? `אורך מחזור ממוצע ${m.cycle} ימים, מתוך ${m.nCycles} ${m.nCycles===1?'מחזור':'מחזורים'}.` : 'עדיין משתמשים בממוצע כללי של 28 ימים. עוד חודש של תיעוד וזה יתחיל להתאים לך.'}${m.learnedOv ? '' : ' הביוץ משוער לפי ממוצע כללי עד שתתעדי ביוץ.'}</li>`;
   }
 
@@ -343,7 +319,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     const t=todayKey();
     m.list.forEach((e,i)=>{
       const isLast = i===m.list.length-1;
-      const end = e.end || (isLast ? (diff(e.start,t) < m.period ? t : addDays(e.start,m.period-1)) : addDays(e.start,m.period-1));
+      const end = e.end || (isLast && diff(e.start,t) < m.period ? t : addDays(e.start,m.period-1));
       for(let k=e.start; k<=end; k=addDays(k,1)) add(k,'period');
       if(e.ov) add(e.ov,'ov');
     });
@@ -353,7 +329,6 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
       if(p.ov>=t) add(p.ov,'pred-ov');
       for(let k=p.start;k<=p.end;k=addDays(k,1)) if(k>=t) add(k,'pred-period');
     });
-    // current cycle's fertile window/ovulation if still upcoming and not logged
     if(last && !last.ov){
       const ov=addDays(last.start,m.ovDay);
       for(let k=addDays(ov,-5);k<=addDays(ov,1);k=addDays(k,1)) if(k>=t) add(k,'fertile');
@@ -363,6 +338,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     const first = viewMonth.getDay();
     for(let i=0;i<first;i++) html+=`<div class="day out"></div>`;
     const dim = new Date(viewMonth.getFullYear(), viewMonth.getMonth()+1, 0).getDate();
+    const names = {period:'מחזור','pred-period':'מחזור צפוי',fertile:'חלון פוריות',ov:'ביוץ','pred-ov':'ביוץ צפוי'};
     for(let d=1; d<=dim; d++){
       const k = toKey(new Date(viewMonth.getFullYear(), viewMonth.getMonth(), d));
       const s = marks[k] || new Set();
@@ -372,7 +348,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
       else if(s.has('fertile')) cls+=' fertile';
       if(s.has('ov')) cls+=' ov'; else if(s.has('pred-ov') && !s.has('period')) cls+=' pred-ov';
       if(k===t) cls+=' today';
-      const label = [...s].map(x=>({period:'מחזור','pred-period':'מחזור צפוי',fertile:'חלון פוריות',ov:'ביוץ','pred-ov':'ביוץ צפוי'})[x]).join(', ');
+      const label = [...s].map(x=>names[x]).join(', ');
       html += `<div class="${cls}" aria-label="${d}${label?' – '+label:''}${k===t?' – היום':''}">${d}</div>`;
     }
     grid.innerHTML = html;
@@ -382,9 +358,8 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     const ul=document.getElementById('hist');
     const list=[...m.list].reverse();
     if(!list.length){ ul.innerHTML='<li class="empty">עוד אין מחזורים מתועדים.</li>'; return; }
-    const byStart = m.list;
     ul.innerHTML = list.map(e=>{
-      const idx = byStart.indexOf(e), next = byStart[idx+1];
+      const idx = m.list.indexOf(e), next = m.list[idx+1];
       const parts=[];
       if(e.end) parts.push(`עד ${f(e.end)} (${days(diff(e.start,e.end)+1)})`);
       if(e.ov) parts.push(`ביוץ ${f(e.ov)}`);
@@ -394,7 +369,6 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
     }).join('');
   }
 
-  // ---------- form ----------
   const fStart=document.getElementById('fStart'), fEnd=document.getElementById('fEnd'), fOv=document.getElementById('fOv');
   const msg=document.getElementById('msg'), cancelBtn=document.getElementById('cancel'), saveBtn=document.getElementById('save');
   function say(t,err){ msg.textContent=t; msg.className='msg'+(err?' err':''); }
@@ -440,7 +414,7 @@ input[type=date]{width:100%;padding:10px 12px;border:1px solid var(--line);borde
   fStart.max = todayKey();
   entries = loadLocal();
   render();
-  connectDb();
+  loadRemote();
 })();
 </script>
 </body>
